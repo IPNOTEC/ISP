@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPNOTEC | Complete Public Internet Pod Ecosystem</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050510;
+            --device-body: #111125;
+            --screen-bg: #000000;
+            --electric-violet: #8F00FF;
+            --stellar-white: #FFFFFF;
+            --danger-red: #FF1A1A;
+            --frame-glow: #222244;
+            
+            /* Infrastructure Colors */
+            --connectivity: #00B0F0;    /* Blue - STARLINK/Fiber */
+            --security: #45de12;        /* Green - Security Layer */
+            --experience: #FF6900;      /* Orange - Experience Layer */
+            --monetization: #FFFF00;    /* Yellow - Monetization */
+            --compliance: #8F00FF;      /* Violet - Compliance */
+            
+            /* Service Categories */
+            --service-social: #1877F2;      /* Facebook Blue */
+            --service-commerce: #FF6B00;    /* E-commerce Orange */
+            --service-learning: #00A8FF;    /* Learning Blue */
+            --service-health: #FF3366;      /* Health Pink */
+            --service-gov: #4CAF50;         /* Government Green */
+            --service-entertainment: #E4405F; /* Entertainment Red */
+            
+            /* Kit Items */
+            --kit-primary: #1a1a3a;
+            --kit-secondary: #222244;
+        }
+
+        * { 
+            box-sizing: border-box; 
+            user-select: none; 
+            font-family: 'IBM Plex Mono', monospace; 
+        }
+
+        body {
+            margin: 0; 
+            padding: 0;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(143, 0, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(0, 176, 240, 0.15) 0%, transparent 40%);
+            height: 100vh;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            overflow: hidden; 
+            color: var(--stellar-white);
+        }
+
+        /* --- ANIMATED BACKGROUND CANVAS --- */
+        #canvas-bg {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            z-index: 0; 
+            opacity: 0.3; 
+            pointer-events: none;
+        }
+
+        /* --- MAIN DEVICE FRAME --- */
+        .ecosystem-device {
+            width: 500px;
+            height: 880px;
+            max-width: 95vw;
+            max-height: 95vh;
+            background: var(--device-body);
+            border-radius: 40px;
+            position: relative;
+            box-shadow: 
+                0 0 80px rgba(143, 0, 255, 0.2),
+                0 0 120px rgba(0, 176, 240, 0.1),
+                inset 0 0 20px rgba(255,255,255,0.05);
+            border: 4px solid #1a1a3a;
+            display: flex; 
+            flex-direction: column;
+            overflow: hidden; 
+            z-index: 10;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* --- POD STATUS HEADER --- */
+        .pod-header {
+            height: 120px;
+            background: linear-gradient(180deg, #0a0a20 0%, #111125 100%);
+            position: relative;
+            padding: 20px;
+            border-bottom: 2px solid #1a1a3a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .pod-model-display {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .pod-icon {
+            width: 60px;
+            height: 60px;
+            background: #1a1a3a;
+            border: 2px solid var(--connectivity);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--connectivity);
+            box-shadow: 0 0 20px rgba(0, 176, 240, 0.3);
+        }
+
+        .pod-status {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pod-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--electric-violet);
+            letter-spacing: 2px;
+        }
+
+        .pod-subtitle {
+            font-size: 10px;
+            color: #888;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .live-stats {
+            display: flex;
+            gap: 15px;
+        }
+
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--security);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 9px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+
+        /* --- MODE NAVIGATION --- */
+        .mode-nav {
+            display: flex;
+            background: #0a0a0a;
+            border-bottom: 1px solid #222;
+        }
+
+        .mode-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            font-size: 10px;
+            color: #666;
+            cursor: pointer;
+            transition: 0.3s;
+            border-bottom: 3px solid transparent;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .mode-tab.active {
+            color: var(--electric-violet);
+            border-color: var(--electric-violet);
+            background: rgba(143, 0, 255, 0.05);
+            font-weight: 700;
+        }
+
+        .mode-tab i {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        /* --- CONTENT AREA --- */
+        .content-area {
+            flex-grow: 1;
+            background: var(--screen-bg);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .content-panel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            display: none;
+            padding: 20px;
+        }
+
+        .content-panel.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- VENDOR PANEL --- */
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            color: var(--electric-violet);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .config-card {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .config-card:hover {
+            border-color: var(--connectivity);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 176, 240, 0.2);
+        }
+
+        .config-card.selected {
+            border-color: var(--security);
+            background: rgba(69, 222, 18, 0.05);
+        }
+
+        .config-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--connectivity);
+        }
+
+        .config-name {
+            font-weight: 700;
+            font-size: 12px;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .config-desc {
+            font-size: 10px;
+            color: #888;
+            line-height: 1.4;
+        }
+
+        /* --- KIT DISPLAY --- */
+        .kit-display {
+            background: rgba(20, 20, 40, 0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .kit-items {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .kit-item {
+            background: var(--kit-primary);
+            border: 1px solid var(--kit-secondary);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            font-size: 10px;
+            color: #aaa;
+            transition: 0.3s;
+        }
+
+        .kit-item:hover {
+            border-color: var(--connectivity);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .kit-item i {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: var(--connectivity);
+        }
+
+        /* --- 100-INCH SCREEN SERVICES --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .service-card {
+            background: rgba(30, 30, 60, 0.8);
+            border-left: 4px solid;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .service-card.social { border-color: var(--service-social); }
+        .service-card.commerce { border-color: var(--service-commerce); }
+        .service-card.learning { border-color: var(--service-learning); }
+        .service-card.health { border-color: var(--service-health); }
+        .service-card.gov { border-color: var(--service-gov); }
+        .service-card.entertainment { border-color: var(--service-entertainment); }
+
+        .service-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .service-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: white;
+        }
+
+        .social .service-icon { background: var(--service-social); }
+        .commerce .service-icon { background: var(--service-commerce); }
+        .learning .service-icon { background: var(--service-learning); }
+        .health .service-icon { background: var(--service-health); }
+        .gov .service-icon { background: var(--service-gov); }
+        .entertainment .service-icon { background: var(--service-entertainment); }
+
+        .service-name {
+            font-weight: 700;
+            font-size: 12px;
+            color: white;
+        }
+
+        .service-desc {
+            font-size: 10px;
+            color: #aaa;
+            line-height: 1.4;
+        }
+
+        /* --- USER EXPERIENCE PANEL --- */
+        .user-connect {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .qr-container {
+            width: 180px;
+            height: 180px;
+            background: white;
+            border-radius: 15px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid var(--security);
+        }
+
+        .qr-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 40%, rgba(69, 222, 18, 0.3) 50%, transparent 60%);
+            animation: scan 2s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .connection-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .stat-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 5px solid;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .stat-circle.speed { border-color: var(--connectivity); }
+        .stat-circle.security { border-color: var(--security); }
+
+        .stat-value-large {
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* --- FINANCIAL PANEL --- */
+        .revenue-display {
+            background: linear-gradient(135deg, rgba(143, 0, 255, 0.1), rgba(0, 176, 240, 0.1));
+            border: 1px solid var(--electric-violet);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .revenue-value {
+            font-size: 36px;
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--security);
+            margin: 10px 0;
+            text-shadow: 0 0 10px rgba(69, 222, 18, 0.3);
+        }
+
+        .revenue-breakdown {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .revenue-item {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 10px;
+        }
+
+        .revenue-amount {
+            font-weight: 700;
+            font-size: 14px;
+            color: white;
+            margin-top: 5px;
+        }
+
+        /* --- BUTTONS --- */
+        .action-button {
+            width: 100%;
+            padding: 15px;
+            background: var(--electric-violet);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(143, 0, 255, 0.3);
+        }
+
+        .action-button:active {
+            transform: translateY(0);
+        }
+
+        .action-button.secondary {
+            background: transparent;
+            border: 1px solid #444;
+            color: #aaa;
+        }
+
+        .action-button.secondary:hover {
+            border-color: var(--connectivity);
+            color: white;
+        }
+
+        /* --- STATUS BAR --- */
+        .status-bar {
+            height: 40px;
+            background: #080808;
+            border-top: 1px solid #222;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            font-size: 9px;
+            color: #666;
+        }
+
+        .system-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--security);
+            box-shadow: 0 0 10px var(--security);
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* --- SCROLLBAR --- */
+        .content-panel::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .content-panel::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.3);
+        }
+
+        .content-panel::-webkit-scrollbar-thumb {
+            background: var(--electric-violet);
+            border-radius: 5px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .ecosystem-device {
+                width: 95vw;
+                height: 95vh;
+                border-radius: 30px;
+            }
+            
+            .pod-header {
+                height: 100px;
+                padding: 15px;
+            }
+            
+            .pod-title {
+                font-size: 16px;
+            }
+            
+            .config-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .kit-items {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .revenue-breakdown {
+                grid-template-columns: 1fr;
+            }
+            
+            .connection-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <canvas id="canvas-bg"></canvas>
+
+    <!-- Main Device -->
+    <div class="ecosystem-device">
+        <!-- Pod Header -->
+        <div class="pod-header">
+            <div class="pod-model-display">
+                <div class="pod-icon">
+                    <i class="fas fa-satellite-dish"></i>
+                </div>
+                <div class="pod-status">
+                    <div class="pod-title">IPNOTEC ISP</div>
+                    <div class="pod-subtitle">Public Access Orchestration Platform</div>
+                </div>
+            </div>
+            <div class="live-stats">
+                <div class="stat-box">
+                    <div class="stat-value" id="liveUsers">0</div>
+                    <div class="stat-label">Users</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="liveData">0</div>
+                    <div class="stat-label">GB Data</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="liveRevenue">0</div>
+                    <div class="stat-label">₹ Rev</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="mode-nav">
+            <div class="mode-tab active" onclick="switchPanel('vendor')">
+                <i class="fas fa-store"></i>
+                Vendor Portal
+            </div>
+            <div class="mode-tab" onclick="switchPanel('services')">
+                <i class="fas fa-tv"></i>
+                100" Services
+            </div>
+            <div class="mode-tab" onclick="switchPanel('kit')">
+                <i class="fas fa-box-open"></i>
+                Pod Kit
+            </div>
+            <div class="mode-tab" onclick="switchPanel('user')">
+                <i class="fas fa-user-shield"></i>
+                User Access
+            </div>
+            <div class="mode-tab" onclick="switchPanel('financial')">
+                <i class="fas fa-chart-line"></i>
+                Financial
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Vendor Panel -->
+            <div class="content-panel active" id="vendorPanel">
+                <div class="section-title">
+                    <i class="fas fa-cogs"></i>
+                    POD CONFIGURATION
+                </div>
+                
+                <div class="config-grid">
+                    <div class="config-card selected" onclick="selectConfig(this, 'mall')">
+                        <div class="config-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="config-name">Shopping Mall</div>
+                        <div class="config-desc">High-traffic retail environment with premium advertising potential</div>
+                    </div>
+                    
+                    <div class="config-card" onclick="selectConfig(this, 'airport')">
+                        <div class="config-icon">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <div class="config-name">Airport Terminal</div>
+                        <div class="config-desc">Premium captive audience with international travelers</div>
+                    </div>
+                    
+                    <div class="config-card" onclick="selectConfig(this, 'campus')">
+                        <div class="config-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="config-name">University Campus</div>
+                        <div class="config-desc">High-density student population with learning integration</div>
+                    </div>
+                    
+                    <div class="config-card" onclick="selectConfig(this, 'hospital')">
+                        <div class="config-icon">
+                            <i class="fas fa-hospital"></i>
+                        </div>
+                        <div class="config-name">Hospital Complex</div>
+                        <div class="config-desc">Critical connectivity with health service integration</div>
+                    </div>
+                    
+                    <div class="config-card" onclick="selectConfig(this, 'corporate')">
+                        <div class="config-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="config-name">Corporate Park</div>
+                        <div class="config-desc">Business-focused with productivity tools integration</div>
+                    </div>
+                    
+                    <div class="config-card" onclick="selectConfig(this, 'smartcity')">
+                        <div class="config-icon">
+                            <i class="fas fa-city"></i>
+                        </div>
+                        <div class="config-name">Smart City Hub</div>
+                        <div class="config-desc">Municipal integration with citizen services</div>
+                    </div>
+                </div>
+                
+                <div class="section-title">
+                    <i class="fas fa-satellite"></i>
+                    CONNECTIVITY OPTIONS
+                </div>
+                
+                <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                    <div class="config-card" style="flex: 1;" onclick="selectConnectivity(this, 'starlink')">
+                        <div class="config-icon">
+                            <i class="fas fa-satellite"></i>
+                        </div>
+                        <div class="config-name">STARLINK LEO</div>
+                        <div class="config-desc">Low Earth Orbit Satellite</div>
+                    </div>
+                    
+                    <div class="config-card" style="flex: 1;" onclick="selectConnectivity(this, 'fiber')">
+                        <div class="config-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div class="config-name">Dual Fiber</div>
+                        <div class="config-desc">Airtel + Jio Fiber Backup</div>
+                    </div>
+                </div>
+                
+                <button class="action-button" onclick="deployPod()">
+                    <i class="fas fa-rocket"></i> DEPLOY CONFIGURED POD
+                </button>
+            </div>
+
+            <!-- 100-Inch Screen Services -->
+            <div class="content-panel" id="servicesPanel">
+                <div class="section-title">
+                    <i class="fas fa-tv"></i>
+                    100-INCH SCREEN SERVICES
+                </div>
+                
+                <div class="services-grid">
+                    <div class="service-card social" onclick="activateService('social')">
+                        <div class="service-header">
+                            <div class="service-icon">
+                                <i class="fab fa-facebook-f"></i>
+                            </div>
+                            <div class="service-name">Social & Community</div>
+                        </div>
+                        <div class="service-desc">
+                            • Local community announcements<br>
+                            • Event calendars<br>
+                            • Social media feed integration<br>
+                            • Public service messages
+                        </div>
+                    </div>
+                    
+                    <div class="service-card commerce" onclick="activateService('commerce')">
+                        <div class="service-header">
+                            <div class="service-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="service-name">Commerce & Retail</div>
+                        </div>
+                        <div class="service-desc">
+                            • Mall directory & promotions<br>
+                            • Flash sales & discounts<br>
+                            • Restaurant menus & wait times<br>
+                            • Parking availability
+                        </div>
+                    </div>
+                    
+                    <div class="service-card learning" onclick="activateService('learning')">
+                        <div class="service-header">
+                            <div class="service-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="service-name">Education & Learning</div>
+                        </div>
+                        <div class="service-desc">
+                            • Campus event schedules<br>
+                            • Course announcements<br>
+                            • Digital library access<br>
+                            • Live lecture broadcasts
+                        </div>
+                    </div>
+                    
+                    <div class="service-card health" onclick="activateService('health')">
+                        <div class="service-header">
+                            <div class="service-icon">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <div class="service-name">Health & Wellness</div>
+                        </div>
+                        <div class="service-desc">
+                            • Doctor appointment schedules<br>
+                            • Health tips & awareness<br>
+                            • Emergency information<br>
+                            • Pharmacy services
+                        </div>
+                    </div>
+                    
+                    <div class="service-card gov" onclick="activateService('gov')">
+                        <div class="service-header">
+                            <div class="service-icon">
+                                <i class="fas fa-landmark"></i>
+                            </div>
+                            <div class="service-name">Government Services</div>
+                        </div>
+                        <div class="service-desc">
+                            • Citizen service announcements<br>
+                            • Digital document access<br>
+                            • Grievance submission<br>
+                            • Municipal updates
+                        </div>
+                    </div>
+                    
+                    <div class="service-card entertainment" onclick="activateService('entertainment')">
+                        <div class="service-header">
+                            <div class="service-icon">
+                                <i class="fas fa-film"></i>
+                            </div>
+                            <div class="service-name">Entertainment</div>
+                        </div>
+                        <div class="service-desc">
+                            • Movie trailers & showtimes<br>
+                            • Live sports scores<br>
+                            • Cultural event coverage<br>
+                            • Interactive games
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title" style="margin-top: 30px;">
+                    <i class="fas fa-chart-bar"></i>
+                    SERVICE ANALYTICS
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px;">
+                    <div class="config-card">
+                        <div class="config-name">Active Services</div>
+                        <div class="stat-value" style="color: var(--security); margin-top: 10px;">6</div>
+                    </div>
+                    <div class="config-card">
+                        <div class="config-name">Daily Impressions</div>
+                        <div class="stat-value" style="color: var(--connectivity); margin-top: 10px;">2,450</div>
+                    </div>
+                    <div class="config-card">
+                        <div class="config-name">Engagement Rate</div>
+                        <div class="stat-value" style="color: var(--monetization); margin-top: 10px;">34%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pod Kit -->
+            <div class="content-panel" id="kitPanel">
+                <div class="section-title">
+                    <i class="fas fa-box-open"></i>
+                    COMPLETE POD KIT
+                </div>
+                
+                <div class="kit-display">
+                    <div class="config-name">Standard Deployment Kit Includes:</div>
+                    
+                    <div class="kit-items">
+                        <div class="kit-item">
+                            <i class="fas fa-satellite-dish"></i>
+                            Connectivity Unit
+                        </div>
+                        <div class="kit-item">
+                            <i class="fas fa-wifi"></i>
+                            Wi-Fi 6E Gateway
+                        </div>
+                        <div class="kit-item">
+                            <i class="fas fa-shield-alt"></i>
+                            Security Module
+                        </div>
+                        <div class="kit-item">
+                            <i class="fas fa-tv"></i>
+                            100" LED Display
+                        </div>
+                        <div class="kit-item">
+                            <i class="fas fa-microchip"></i>
+                            IPNOTEC OS Computer
+                        </div>
+                        <div class="kit-item">
+                            <i class="fas fa-battery-full"></i>
+                            UPS Backup
+                        </div>
+                        <div class="kit-item">
+                            <i class="fas fa-temperature-low"></i>
+                            Cooling System
+                        </div>
+                        <div class="kit-item">
+                            <i class="fas fa-camera"></i>
+                            Surveillance Camera
+                        </div>
+                        <div class="kit-item">
+                            <i class="fas fa-mobile-alt"></i>
+                            Management Tablet
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">
+                    <i class="fas fa-tools"></i>
+                    ADD-ON OPTIONS
+                </div>
+                
+                <div class="kit-items" style="grid-template-columns: repeat(2, 1fr); margin-top: 15px;">
+                    <div class="kit-item" onclick="addToKit('solar')">
+                        <i class="fas fa-solar-panel"></i>
+                        Solar Power System
+                    </div>
+                    <div class="kit-item" onclick="addToKit('iot')">
+                        <i class="fas fa-sensor"></i>
+                        IoT Sensors Package
+                    </div>
+                    <div class="kit-item" onclick="addToKit('5g')">
+                        <i class="fas fa-tower-cell"></i>
+                        5G Backup Module
+                    </div>
+                    <div class="kit-item" onclick="addToKit('analytics')">
+                        <i class="fas fa-brain"></i>
+                        Advanced Analytics
+                    </div>
+                </div>
+                
+                <button class="action-button" style="margin-top: 30px;" onclick="customizeKit()">
+                    <i class="fas fa-paint-brush"></i> CUSTOMIZE YOUR KIT
+                </button>
+            </div>
+
+            <!-- User Access Panel -->
+            <div class="content-panel" id="userPanel">
+                <div class="user-connect">
+                    <div class="section-title">
+                        <i class="fas fa-user-shield"></i>
+                        SECURE PUBLIC ACCESS
+                    </div>
+                    
+                    <p style="color: #888; font-size: 12px; margin-bottom: 20px;">
+                        Connect to IPNOTEC Secure Tunnel for encrypted public internet access
+                    </p>
+                    
+                    <div class="qr-container">
+                        <div style="font-size: 100px; color: #000;">⎕</div>
+                        <div class="qr-animation"></div>
+                    </div>
+                    
+                    <p style="color: var(--security); font-size: 10px; margin-top: 10px;">
+                        Scan with IPNOTEC App for instant connection
+                    </p>
+                    
+                    <div class="connection-stats">
+                        <div>
+                            <div class="stat-circle speed">
+                                <div class="stat-value-large" id="speedValue">850</div>
+                                <div style="font-size: 10px; color: #888;">Mbps</div>
+                            </div>
+                            <div style="text-align: center; margin-top: 10px; font-size: 10px;">Connection Speed</div>
+                        </div>
+                        
+                        <div>
+                            <div class="stat-circle security">
+                                <div class="stat-value-large">256-bit</div>
+                                <div style="font-size: 10px; color: #888;">Encryption</div>
+                            </div>
+                            <div style="text-align: center; margin-top: 10px; font-size: 10px;">Security Level</div>
+                        </div>
+                    </div>
+                    
+                    <button class="action-button" onclick="connectUser()">
+                        <i class="fas fa-plug"></i> ESTABLISH SECURE CONNECTION
+                    </button>
+                </div>
+            </div>
+
+            <!-- Financial Panel -->
+            <div class="content-panel" id="financialPanel">
+                <div class="section-title">
+                    <i class="fas fa-chart-line"></i>
+                    REVENUE MODEL & PROJECTIONS
+                </div>
+                
+                <div class="revenue-display">
+                    <div style="font-size: 12px; color: #aaa;">MONTHLY REVENUE PER POD</div>
+                    <div class="revenue-value">₹ 42,500</div>
+                    <div style="font-size: 10px; color: #888;">Based on average deployment configuration</div>
+                </div>
+                
+                <div class="revenue-breakdown">
+                    <div class="revenue-item">
+                        <div>Venue Subscription</div>
+                        <div class="revenue-amount" style="color: var(--connectivity);">₹ 15,000</div>
+                    </div>
+                    <div class="revenue-item">
+                        <div>Screen Advertising</div>
+                        <div class="revenue-amount" style="color: var(--monetization);">₹ 20,000</div>
+                    </div>
+                    <div class="revenue-item">
+                        <div>Premium Access</div>
+                        <div class="revenue-amount" style="color: var(--security);">₹ 7,500</div>
+                    </div>
+                </div>
+                
+                <div class="section-title" style="margin-top: 30px;">
+                    <i class="fas fa-calculator"></i>
+                    ROI CALCULATOR
+                </div>
+                
+                <div style="background: rgba(20, 20, 40, 0.8); border-radius: 12px; padding: 15px; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <div style="color: #aaa; font-size: 11px;">Deployment Cost (Per Pod)</div>
+                        <div style="font-weight: 700; color: white;">₹ 3,50,000</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <div style="color: #aaa; font-size: 11px;">Monthly Revenue (Avg)</div>
+                        <div style="font-weight: 700; color: var(--security);">₹ 42,500</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <div style="color: #aaa; font-size: 11px;">Monthly Operating Cost</div>
+                        <div style="font-weight: 700; color: #FF3366;">₹ 12,000</div>
+                    </div>
+                    <div style="height: 1px; background: rgba(255,255,255,0.1); margin: 15px 0;"></div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <div style="color: #aaa; font-size: 11px;">BREAK-EVEN PERIOD</div>
+                        <div style="font-weight: 700; color: var(--connectivity); font-family: 'Orbitron';">8.2 MONTHS</div>
+                    </div>
+                </div>
+                
+                <button class="action-button" onclick="generateProposal()">
+                    <i class="fas fa-file-invoice-dollar"></i> GENERATE INVESTMENT PROPOSAL
+                </button>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="system-status">
+                <div class="status-dot"></div>
+                <span>SYSTEM: OPERATIONAL</span>
+            </div>
+            <div id="liveTime">00:00:00</div>
+            <div>IPNOTEC POD: <span id="podCount">1</span> ACTIVE</div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize state
+        let currentPanel = 'vendor';
+        let liveUsers = 0;
+        let liveData = 0;
+        let liveRevenue = 0;
+        let podCount = 1;
+        let connectionActive = false;
+        let speedInterval = null;
+        
+        // Background canvas animation
+        const canvas = document.getElementById('canvas-bg');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            for(let i = 0; i < 80; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    size: Math.random() * 2 + 1,
+                    color: Math.random() > 0.5 ? 'rgba(143, 0, 255, 0.3)' : 'rgba(0, 176, 240, 0.3)'
+                });
+            }
+            
+            drawBackground();
+        }
+        
+        function drawBackground() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw network lines
+            ctx.strokeStyle = 'rgba(143, 0, 255, 0.1)';
+            ctx.lineWidth = 1;
+            
+            particles.forEach((p1, i) => {
+                p1.x += p1.vx;
+                p1.y += p1.vy;
+                
+                if(p1.x < 0 || p1.x > canvas.width) p1.vx *= -1;
+                if(p1.y < 0 || p1.y > canvas.height) p1.vy *= -1;
+                
+                // Draw connections
+                particles.forEach((p2, j) => {
+                    if(i !== j) {
+                        const dx = p1.x - p2.x;
+                        const dy = p1.y - p2.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if(distance < 100) {
+                            ctx.beginPath();
+                            ctx.moveTo(p1.x, p1.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.stroke();
+                        }
+                    }
+                });
+                
+                // Draw particle
+                ctx.fillStyle = p1.color;
+                ctx.beginPath();
+                ctx.arc(p1.x, p1.y, p1.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            
+            requestAnimationFrame(drawBackground);
+        }
+        
+        // Update live stats
+        function updateStats() {
+            setInterval(() => {
+                liveUsers += Math.floor(Math.random() * 5);
+                liveData += Math.random() * 0.5;
+                liveRevenue += Math.random() * 10;
+                
+                document.getElementById('liveUsers').textContent = liveUsers;
+                document.getElementById('liveData').textContent = liveData.toFixed(1);
+                document.getElementById('liveRevenue').textContent = Math.floor(liveRevenue);
+            }, 2000);
+        }
+        
+        // Update time
+        function updateTime() {
+            setInterval(() => {
+                const now = new Date();
+                const timeStr = now.toLocaleTimeString([], {hour12: false});
+                document.getElementById('liveTime').textContent = timeStr;
+            }, 1000);
+        }
+        
+        // Switch between panels
+        function switchPanel(panelId) {
+            // Update active tab
+            document.querySelectorAll('.mode-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.mode-tab').forEach(tab => {
+                if(tab.textContent.includes(panelId.charAt(0).toUpperCase() + panelId.slice(1).split(' ')[0])) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            // Update active panel
+            document.querySelectorAll('.content-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            
+            document.getElementById(panelId + 'Panel').classList.add('active');
+            currentPanel = panelId;
+        }
+        
+        // Select configuration
+        function selectConfig(element, configType) {
+            document.querySelectorAll('.config-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+        
+        // Select connectivity
+        function selectConnectivity(element, type) {
+            document.querySelectorAll('.config-card').forEach(card => {
+                card.style.borderColor = '#222';
+                card.style.transform = 'translateY(0)';
+            });
+            element.style.borderColor = 'var(--security)';
+            element.style.transform = 'translateY(-3px)';
+        }
+        
+        // Deploy pod
+        function deployPod() {
+            podCount++;
+            document.getElementById('podCount').textContent = podCount;
+            
+            // Show success animation
+            const button = document.querySelector('.action-button');
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check-circle"></i> POD DEPLOYED!';
+            button.style.background = 'var(--security)';
+            
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.style.background = 'var(--electric-violet)';
+            }, 2000);
+            
+            // Update stats
+            liveUsers += 50;
+            liveData += 10;
+            liveRevenue += 500;
+            
+            alert('Pod deployment initiated! Configuration transmitted to IPNOTEC deployment team.');
+        }
+        
+        // Activate service
+        function activateService(serviceType) {
+            const services = {
+                social: 'Social & Community Services',
+                commerce: 'Commerce & Retail Services',
+                learning: 'Education & Learning Services',
+                health: 'Health & Wellness Services',
+                gov: 'Government Services',
+                entertainment: 'Entertainment Services'
+            };
+            
+            alert(`${services[serviceType]} activated on 100-inch screen!`);
+        }
+        
+        // Add to kit
+        function addToKit(item) {
+            const items = {
+                solar: 'Solar Power System',
+                iot: 'IoT Sensors Package',
+                '5g': '5G Backup Module',
+                analytics: 'Advanced Analytics'
+            };
+            
+            alert(`${items[item]} added to your Pod Kit configuration!`);
+        }
+        
+        // Customize kit
+        function customizeKit() {
+            switchPanel('kit');
+            alert('Kit customization interface launched. Use the add-on options to build your perfect pod configuration.');
+        }
+        
+        // Connect user
+        function connectUser() {
+            if(!connectionActive) {
+                connectionActive = true;
+                
+                // Start speed simulation
+                speedInterval = setInterval(() => {
+                    const speed = Math.floor(Math.random() * 200) + 700;
+                    document.getElementById('speedValue').textContent = speed;
+                }, 1000);
+                
+                // Update button
+                const button = document.querySelector('#userPanel .action-button');
+                button.innerHTML = '<i class="fas fa-unlink"></i> DISCONNECT';
+                button.style.background = 'var(--danger-red)';
+                
+                // Update stats
+                liveUsers++;
+                
+                alert('Secure connection established! You are now browsing through IPNOTEC encrypted tunnel.');
+            } else {
+                connectionActive = false;
+                
+                // Stop speed simulation
+                clearInterval(speedInterval);
+                
+                // Update button
+                const button = document.querySelector('#userPanel .action-button');
+                button.innerHTML = '<i class="fas fa-plug"></i> ESTABLISH SECURE CONNECTION';
+                button.style.background = 'var(--electric-violet)';
+                
+                // Reset speed
+                document.getElementById('speedValue').textContent = '850';
+                
+                alert('Connection terminated. Thank you for using IPNOTEC Secure Public Access.');
+            }
+        }
+        
+        // Generate proposal
+        function generateProposal() {
+            const proposal = `
+IPNOTEC PUBLIC INTERNET POD
+INVESTMENT PROPOSAL
+
+Location: Shopping Mall (Premium Tier)
+Connectivity: STARLINK LEO + Dual Fiber
+Deployment Cost: ₹ 3,50,000
+Monthly Revenue Projection: ₹ 42,500
+Monthly Operating Cost: ₹ 12,000
+Monthly Net Profit: ₹ 30,500
+Break-even Period: 8.2 Months
+5-Year Projected ROI: 523%
+
+Services Included:
+• 100-inch LED Display with 6 service categories
+• Complete Pod Kit with all essential components
+• IPNOTEC Secure Access Platform
+• 24/7 Remote Management
+• Revenue Sharing Model
+
+This proposal has been generated based on your current configuration.
+            `;
+            
+            alert(proposal);
+        }
+        
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            initCanvas();
+            updateStats();
+            updateTime();
+            
+            // Set initial values
+            document.getElementById('liveUsers').textContent = liveUsers;
+            document.getElementById('liveData').textContent = liveData.toFixed(1);
+            document.getElementById('liveRevenue').textContent = Math.floor(liveRevenue);
+            document.getElementById('podCount').textContent = podCount;
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', initCanvas);
+    </script>
+</body>
+</html>
