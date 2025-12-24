@@ -8,37 +8,39 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #050510;
-            --device-body: rgba(17, 17, 37, 0.85);
+            --bg-color: #000000;
+            --device-body: rgba(10, 10, 15, 0.95);
             --screen-bg: #000000;
             --electric-violet: #8F00FF;
             --stellar-white: #FFFFFF;
             --danger-red: #FF1A1A;
-            --frame-glow: #222244;
-            --primary-orange: #FF6900;
-            --primary-blue: #00B0F0;
+            --frame-glow: #333344;
+            --electric-blue: #00B0F0;
+            --electric-orange: #FF6900;
+            --neon-grey: #B0B0C0;
+            --tron-blue: #00F0FF;
             
             /* Infrastructure Colors */
             --connectivity: #00B0F0;    /* Blue - STARLINK/Fiber */
-            --security: #45de12;        /* Green - Security Layer */
-            --experience: #FF6900;      /* Orange - Experience Layer */
+            --security: #00FF88;        /* Green - Security Layer */
+            --experience: #B0B0C0;      /* Grey - Experience Layer */
             --monetization: #FFFF00;    /* Yellow - Monetization */
             --compliance: #8F00FF;      /* Violet - Compliance */
             
             /* Service Categories */
             --service-social: #1877F2;
-            --service-commerce: #FF6B00;
-            --service-learning: #00A8FF;
+            --service-commerce: #B0B0C0;
+            --service-learning: #00F0FF;
             --service-health: #FF3366;
-            --service-gov: #4CAF50;
-            --service-entertainment: #E4405F;
+            --service-gov: #00FF88;
+            --service-entertainment: #FF00FF;
             
             /* Kit Items */
-            --kit-primary: #1a1a3a;
-            --kit-secondary: #222244;
+            --kit-primary: #1a1a2a;
+            --kit-secondary: #222233;
             
             /* Current theme color - dynamic */
-            --current-theme: #FF6900;
+            --current-theme: #B0B0C0;
         }
 
         * { 
@@ -52,8 +54,8 @@
             padding: 0;
             background-color: var(--bg-color);
             background-image: 
-                radial-gradient(circle at 10% 10%, rgba(255, 105, 0, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 90%, rgba(0, 176, 240, 0.15) 0%, transparent 40%);
+                radial-gradient(circle at 10% 10%, rgba(176, 176, 192, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(0, 240, 255, 0.08) 0%, transparent 40%);
             height: 100vh;
             display: flex; 
             justify-content: center; 
@@ -71,32 +73,34 @@
             width: 100%; 
             height: 100%;
             z-index: 0; 
-            opacity: 0.3; 
+            opacity: 0.4; 
             pointer-events: none;
         }
 
         /* --- GLASS MORPHISM EFFECT --- */
         .glass-effect {
-            background: rgba(17, 17, 37, 0.85);
+            background: rgba(10, 10, 15, 0.85);
             backdrop-filter: blur(10px) saturate(180%);
             -webkit-backdrop-filter: blur(10px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
         }
 
         /* --- MAIN DEVICE FRAME --- */
         .ecosystem-device {
             width: 500px;
-            height: 880px;
+            height: 810px; /* Reduced by 7% from 880px */
             max-width: 95vw;
             max-height: 95vh;
-            background: var(--device-body);
-            border-radius: 40px;
+            background: linear-gradient(145deg, rgba(10, 10, 15, 0.95), rgba(20, 20, 30, 0.95));
+            border-radius: 30px;
             position: relative;
             box-shadow: 
-                0 0 80px rgba(255, 105, 0, 0.3),
-                0 0 120px rgba(0, 176, 240, 0.2),
+                0 0 40px rgba(176, 176, 192, 0.4),
+                0 0 80px rgba(0, 240, 255, 0.2),
+                0 0 120px rgba(143, 0, 255, 0.1),
                 inset 0 0 20px rgba(255,255,255,0.05);
-            border: 4px solid var(--current-theme);
+            border: 2px solid var(--neon-grey);
             display: flex; 
             flex-direction: column;
             overflow: hidden; 
@@ -107,11 +111,11 @@
 
         /* --- POD STATUS HEADER --- */
         .pod-header {
-            height: 120px;
-            background: linear-gradient(180deg, rgba(10, 10, 32, 0.9) 0%, rgba(17, 17, 37, 0.9) 100%);
+            height: 100px;
+            background: linear-gradient(180deg, rgba(5, 5, 10, 0.95) 0%, rgba(10, 10, 15, 0.95) 100%);
             position: relative;
-            padding: 20px;
-            border-bottom: 2px solid rgba(255, 105, 0, 0.3);
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(176, 176, 192, 0.3);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -121,22 +125,44 @@
         .pod-model-display {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
+            flex: 1;
         }
 
         .pod-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(26, 26, 58, 0.8);
-            border: 2px solid var(--primary-orange);
-            border-radius: 15px;
+            width: 50px;
+            height: 50px;
+            background: rgba(5, 5, 10, 0.9);
+            border: 1px solid var(--neon-grey);
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            color: var(--primary-orange);
-            box-shadow: 0 0 20px rgba(255, 105, 0, 0.4);
+            gap: 4px;
+            position: relative;
+            box-shadow: 0 0 15px rgba(176, 176, 192, 0.3);
             backdrop-filter: blur(5px);
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 1px;
+            background: var(--electric-blue);
+            animation: dotPulse 1.5s infinite alternate;
+            box-shadow: 0 0 8px var(--electric-blue);
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: 0.3s;
+            background: var(--electric-violet);
+            box-shadow: 0 0 8px var(--electric-violet);
+        }
+
+        @keyframes dotPulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
         }
 
         .pod-status {
@@ -146,79 +172,102 @@
 
         .pod-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
-            color: #FF6900;
             letter-spacing: 2px;
         }
 
+        .ipnotec {
+            color: var(--electric-orange);
+            text-shadow: 0 0 10px rgba(255, 105, 0, 0.7);
+        }
+
+        .isp {
+            color: var(--stellar-white);
+        }
+
         .pod-subtitle {
-            font-size: 10px;
-            color: #FFFFFF;
+            font-size: 9px;
+            color: #B0B0C0;
             letter-spacing: 1px;
             margin-top: 5px;
         }
 
         .pod-subtitle span {
-            color: #FF0000;
+            color: var(--tron-blue);
             font-weight: 700;
+            text-shadow: 0 0 5px var(--tron-blue);
         }
 
+        /* --- LIVE STATS IN TOP RIGHT CORNER --- */
         .live-stats {
             display: flex;
-            gap: 15px;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+            position: absolute;
+            top: 15px;
+            right: 20px;
         }
 
         .stat-box {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--security);
-            font-family: 'Orbitron', sans-serif;
+            text-align: right;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .stat-label {
-            font-size: 9px;
-            color: #666;
+            font-size: 8px;
+            color: #888;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-top: 2px;
+            min-width: 45px;
+            text-align: right;
+        }
+
+        .stat-value {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--tron-blue);
+            font-family: 'Orbitron', sans-serif;
+            min-width: 45px;
+            text-align: right;
+            text-shadow: 0 0 8px var(--tron-blue);
         }
 
         /* --- MODE NAVIGATION --- */
         .mode-nav {
             display: flex;
-            background: rgba(10, 10, 10, 0.9);
-            border-bottom: 1px solid rgba(255, 105, 0, 0.2);
+            background: rgba(5, 5, 10, 0.95);
+            border-bottom: 1px solid rgba(176, 176, 192, 0.2);
             backdrop-filter: blur(5px);
         }
 
         .mode-tab {
             flex: 1;
-            padding: 15px;
+            padding: 12px 5px;
             text-align: center;
-            font-size: 10px;
-            color: #888;
+            font-size: 9px;
+            color: #666;
             cursor: pointer;
             transition: all 0.3s;
-            border-bottom: 3px solid transparent;
+            border-bottom: 2px solid transparent;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
 
         .mode-tab.active {
-            color: var(--primary-orange);
-            border-color: var(--primary-orange);
-            background: rgba(255, 105, 0, 0.1);
+            color: var(--neon-grey);
+            border-color: var(--neon-grey);
+            background: rgba(176, 176, 192, 0.1);
             font-weight: 700;
+            text-shadow: 0 0 10px rgba(176, 176, 192, 0.5);
         }
 
         .mode-tab i {
             display: block;
-            font-size: 14px;
+            font-size: 12px;
             margin-bottom: 5px;
         }
 
@@ -258,28 +307,35 @@
         /* --- VENDOR PANEL --- */
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 14px;
-            color: var(--primary-orange);
-            margin-bottom: 20px;
+            font-size: 13px;
+            color: var(--neon-grey);
+            margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 2px;
             display: flex;
             align-items: center;
             gap: 10px;
+            border-bottom: 1px solid rgba(176, 176, 192, 0.3);
+            padding-bottom: 8px;
+        }
+
+        .section-title i {
+            color: var(--tron-blue);
+            text-shadow: 0 0 10px var(--tron-blue);
         }
 
         .config-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 12px;
             margin-bottom: 20px;
         }
 
         .config-card {
-            background: rgba(17, 17, 17, 0.8);
-            border: 1px solid rgba(34, 34, 34, 0.8);
-            border-radius: 12px;
-            padding: 15px;
+            background: rgba(15, 15, 25, 0.8);
+            border: 1px solid rgba(50, 50, 70, 0.8);
+            border-radius: 10px;
+            padding: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
@@ -288,97 +344,100 @@
         }
 
         .config-card:hover {
-            border-color: var(--primary-orange);
+            border-color: var(--neon-grey);
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255, 105, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(176, 176, 192, 0.2);
         }
 
         .config-card.selected {
             border-color: var(--security);
-            background: rgba(69, 222, 18, 0.1);
+            background: rgba(0, 255, 136, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
         }
 
         .config-icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
+            width: 35px;
+            height: 35px;
+            background: rgba(30, 30, 40, 0.8);
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 16px;
             margin-bottom: 10px;
-            color: var(--primary-orange);
+            color: var(--neon-grey);
+            border: 1px solid rgba(176, 176, 192, 0.3);
         }
 
         .config-name {
             font-weight: 700;
-            font-size: 12px;
+            font-size: 11px;
             margin-bottom: 5px;
             color: white;
         }
 
         .config-desc {
-            font-size: 10px;
+            font-size: 9px;
             color: #aaa;
             line-height: 1.4;
         }
 
         /* --- KIT DISPLAY --- */
         .kit-display {
-            background: rgba(20, 20, 40, 0.8);
-            border: 1px solid rgba(255,105,0,0.3);
-            border-radius: 12px;
-            padding: 15px;
-            margin: 20px 0;
+            background: rgba(15, 15, 25, 0.8);
+            border: 1px solid rgba(176, 176, 192, 0.3);
+            border-radius: 10px;
+            padding: 12px;
+            margin: 15px 0;
             backdrop-filter: blur(5px);
         }
 
         .kit-items {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 15px;
+            gap: 8px;
+            margin-top: 12px;
         }
 
         .kit-item {
             background: var(--kit-primary);
-            border: 1px solid rgba(255,105,0,0.3);
-            border-radius: 8px;
-            padding: 10px;
+            border: 1px solid rgba(176, 176, 192, 0.3);
+            border-radius: 6px;
+            padding: 8px;
             text-align: center;
-            font-size: 10px;
+            font-size: 9px;
             color: #aaa;
             transition: 0.3s;
             backdrop-filter: blur(5px);
         }
 
         .kit-item:hover {
-            border-color: var(--primary-orange);
+            border-color: var(--tron-blue);
             color: white;
             transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
         }
 
         .kit-item i {
             display: block;
-            font-size: 16px;
+            font-size: 14px;
             margin-bottom: 5px;
-            color: var(--primary-orange);
+            color: var(--tron-blue);
         }
 
         /* --- 100-INCH SCREEN SERVICES --- */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 20px;
+            gap: 12px;
+            margin-top: 15px;
         }
 
         .service-card {
-            background: rgba(30, 30, 60, 0.8);
-            border-left: 4px solid;
-            border-radius: 10px;
-            padding: 15px;
+            background: rgba(20, 20, 30, 0.8);
+            border-left: 3px solid;
+            border-radius: 8px;
+            padding: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
             backdrop-filter: blur(5px);
@@ -399,18 +458,18 @@
         .service-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
+            gap: 8px;
+            margin-bottom: 8px;
         }
 
         .service-icon {
-            width: 30px;
-            height: 30px;
-            border-radius: 8px;
+            width: 25px;
+            height: 25px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 12px;
             color: white;
         }
 
@@ -423,12 +482,12 @@
 
         .service-name {
             font-weight: 700;
-            font-size: 12px;
+            font-size: 11px;
             color: white;
         }
 
         .service-desc {
-            font-size: 10px;
+            font-size: 9px;
             color: #aaa;
             line-height: 1.4;
         }
@@ -436,21 +495,22 @@
         /* --- USER EXPERIENCE PANEL --- */
         .user-connect {
             text-align: center;
-            padding: 30px 20px;
+            padding: 20px 15px;
         }
 
         .qr-container {
-            width: 180px;
-            height: 180px;
+            width: 160px;
+            height: 160px;
             background: white;
-            border-radius: 15px;
-            margin: 20px auto;
+            border-radius: 12px;
+            margin: 15px auto;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow: hidden;
-            border: 3px solid var(--security);
+            border: 2px solid var(--security);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
         }
 
         .qr-animation {
@@ -459,7 +519,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, transparent 40%, rgba(69, 222, 18, 0.3) 50%, transparent 60%);
+            background: linear-gradient(45deg, transparent 40%, rgba(0, 255, 136, 0.3) 50%, transparent 60%);
             animation: scan 2s linear infinite;
         }
 
@@ -471,15 +531,15 @@
         .connection-stats {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 30px;
+            gap: 12px;
+            margin-top: 25px;
         }
 
         .stat-circle {
-            width: 100px;
-            height: 100px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
-            border: 5px solid;
+            border: 3px solid;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -489,53 +549,53 @@
             backdrop-filter: blur(5px);
         }
 
-        .stat-circle.speed { border-color: var(--primary-orange); }
+        .stat-circle.speed { border-color: var(--neon-grey); }
         .stat-circle.security { border-color: var(--security); }
 
         .stat-value-large {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
             font-family: 'Orbitron', sans-serif;
         }
 
         /* --- FINANCIAL PANEL --- */
         .revenue-display {
-            background: linear-gradient(135deg, rgba(255, 105, 0, 0.2), rgba(0, 176, 240, 0.2));
-            border: 1px solid var(--primary-orange);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
+            background: linear-gradient(135deg, rgba(176, 176, 192, 0.1), rgba(0, 240, 255, 0.1));
+            border: 1px solid var(--neon-grey);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
             text-align: center;
             backdrop-filter: blur(5px);
         }
 
         .revenue-value {
-            font-size: 36px;
+            font-size: 30px;
             font-weight: 900;
             font-family: 'Orbitron', sans-serif;
             color: var(--security);
-            margin: 10px 0;
-            text-shadow: 0 0 10px rgba(69, 222, 18, 0.3);
+            margin: 8px 0;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
         }
 
         .revenue-breakdown {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 20px;
+            gap: 8px;
+            margin-top: 15px;
         }
 
         .revenue-item {
             background: rgba(0,0,0,0.5);
-            border-radius: 8px;
-            padding: 10px;
-            font-size: 10px;
+            border-radius: 6px;
+            padding: 8px;
+            font-size: 9px;
             backdrop-filter: blur(5px);
         }
 
         .revenue-amount {
             font-weight: 700;
-            font-size: 14px;
+            font-size: 12px;
             color: white;
             margin-top: 5px;
         }
@@ -543,28 +603,29 @@
         /* --- BUTTONS --- */
         .action-button {
             width: 100%;
-            padding: 15px;
-            background: var(--primary-orange);
+            padding: 12px;
+            background: linear-gradient(to right, rgba(176, 176, 192, 0.8), rgba(100, 100, 120, 0.8));
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
-            font-size: 12px;
+            font-size: 11px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 20px;
+            letter-spacing: 1px;
+            margin-top: 15px;
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(5px);
+            border: 1px solid rgba(176, 176, 192, 0.5);
         }
 
         .action-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 105, 0, 0.4);
-            background: #FF8533;
+            box-shadow: 0 10px 20px rgba(176, 176, 192, 0.3);
+            background: linear-gradient(to right, rgba(200, 200, 220, 0.8), rgba(120, 120, 140, 0.8));
         }
 
         .action-button:active {
@@ -578,22 +639,22 @@
         }
 
         .action-button.secondary:hover {
-            border-color: var(--primary-orange);
+            border-color: var(--neon-grey);
             color: white;
         }
 
         /* --- STATUS BAR (FIXED FOOTER) --- */
         .status-bar {
-            height: 40px;
-            min-height: 40px;
-            background: rgba(8, 8, 8, 0.95);
-            border-top: 1px solid rgba(255, 105, 0, 0.3);
+            height: 35px;
+            min-height: 35px;
+            background: rgba(5, 5, 10, 0.95);
+            border-top: 1px solid rgba(176, 176, 192, 0.3);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
+            padding: 0 15px;
             font-size: 9px;
-            color: #666;
+            color: #FFFFFF;
             position: absolute;
             bottom: 0;
             left: 0;
@@ -605,16 +666,20 @@
         .system-status {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
+            width: 10px;
+            height: 10px;
             background: var(--security);
             box-shadow: 0 0 10px var(--security);
             animation: blink 2s infinite;
+        }
+
+        /* Square status dot */
+        .status-dot {
+            border-radius: 2px !important;
         }
 
         @keyframes blink {
@@ -622,9 +687,16 @@
             50% { opacity: 0.3; }
         }
 
+        #liveTime {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
         /* --- SCROLLBAR --- */
         .content-panel::-webkit-scrollbar {
-            width: 5px;
+            width: 4px;
         }
 
         .content-panel::-webkit-scrollbar-track {
@@ -632,8 +704,8 @@
         }
 
         .content-panel::-webkit-scrollbar-thumb {
-            background: var(--primary-orange);
-            border-radius: 5px;
+            background: var(--neon-grey);
+            border-radius: 2px;
         }
 
         /* --- MOBILE FIXES --- */
@@ -654,19 +726,42 @@
             }
             
             .pod-header {
-                height: 100px;
-                padding: 15px;
-                flex-wrap: wrap;
-            }
-            
-            .pod-title {
-                font-size: 16px;
+                height: 90px;
+                padding: 12px 15px;
+                flex-wrap: nowrap;
             }
             
             .live-stats {
-                width: 100%;
-                justify-content: space-around;
-                margin-top: 10px;
+                position: relative;
+                top: 0;
+                right: 0;
+                flex-direction: row;
+                gap: 15px;
+                margin-top: 5px;
+                justify-content: flex-end;
+            }
+            
+            .stat-box {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 2px;
+            }
+            
+            .stat-label, .stat-value {
+                text-align: right;
+                min-width: auto;
+            }
+            
+            .stat-label {
+                font-size: 7px;
+            }
+            
+            .stat-value {
+                font-size: 10px;
+            }
+            
+            .pod-title {
+                font-size: 14px;
             }
             
             .mode-nav {
@@ -675,20 +770,25 @@
             }
             
             .mode-tab {
-                min-width: 80px;
-                padding: 10px 5px;
-                font-size: 8px;
+                min-width: 70px;
+                padding: 8px 3px;
+                font-size: 7px;
+            }
+            
+            .mode-tab i {
+                font-size: 10px;
             }
             
             .content-area {
-                height: calc(100vh - 160px);
+                height: calc(100vh - 145px);
                 overflow-y: auto;
                 position: relative;
             }
             
             .content-panel {
                 height: 100%;
-                padding-bottom: 60px;
+                padding: 15px;
+                padding-bottom: 50px;
                 overflow-y: auto;
             }
             
@@ -719,17 +819,21 @@
                 right: 0;
                 border-radius: 0;
                 z-index: 1000;
+                height: 35px;
+                padding: 0 10px;
+                font-size: 8px;
             }
         }
 
         /* --- HIGH CONTRAST TEXT --- */
         .high-contrast {
             color: #FFFFFF !important;
-            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+            text-shadow: 0 0 5px rgba(0,0,0,0.8);
         }
 
         .orange-text {
-            color: #FF6900 !important;
+            color: var(--electric-orange) !important;
+            text-shadow: 0 0 10px rgba(255, 105, 0, 0.5);
         }
 
         .red-text {
@@ -737,11 +841,11 @@
         }
 
         /* --- THEME COLORS FOR CONFIG CARDS --- */
-        .theme-mall { --current-theme: #FF6B00; }
+        .theme-mall { --current-theme: #B0B0C0; }
         .theme-airport { --current-theme: #00B0F0; }
-        .theme-campus { --current-theme: #00A8FF; }
+        .theme-campus { --current-theme: #00F0FF; }
         .theme-hospital { --current-theme: #FF3366; }
-        .theme-corporate { --current-theme: #4CAF50; }
+        .theme-corporate { --current-theme: #00FF88; }
         .theme-smartcity { --current-theme: #8F00FF; }
 
         /* --- FRAME GLOW EFFECT --- */
@@ -751,15 +855,42 @@
             left: 0;
             right: 0;
             bottom: 0;
-            border-radius: 40px;
+            border-radius: 30px;
             pointer-events: none;
             z-index: -1;
-            animation: pulse 2s infinite alternate;
+            animation: pulse 3s infinite alternate;
+            opacity: 0.7;
         }
 
         @keyframes pulse {
-            0% { box-shadow: 0 0 20px var(--current-theme); }
-            100% { box-shadow: 0 0 40px var(--current-theme); }
+            0% { 
+                box-shadow: 
+                    0 0 20px rgba(176, 176, 192, 0.3),
+                    0 0 40px rgba(0, 240, 255, 0.1),
+                    0 0 60px rgba(143, 0, 255, 0.05);
+            }
+            100% { 
+                box-shadow: 
+                    0 0 30px rgba(176, 176, 192, 0.5),
+                    0 0 60px rgba(0, 240, 255, 0.2),
+                    0 0 90px rgba(143, 0, 255, 0.1);
+            }
+        }
+
+        /* --- TRON GRID EFFECT --- */
+        .tron-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
         }
     </style>
 </head>
@@ -769,6 +900,9 @@
 
     <!-- Main Device -->
     <div class="ecosystem-device">
+        <!-- Tron Grid Effect -->
+        <div class="tron-grid"></div>
+        
         <!-- Frame Glow Effect -->
         <div class="frame-glow"></div>
         
@@ -776,27 +910,32 @@
         <div class="pod-header">
             <div class="pod-model-display">
                 <div class="pod-icon">
-                    <i class="fas fa-satellite-dish"></i>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
                 </div>
                 <div class="pod-status">
-                    <div class="pod-title">IPNOTEC ISP</div>
+                    <div class="pod-title">
+                        <span class="ipnotec">IPNOTEC</span> <span class="isp">ISP</span>
+                    </div>
                     <div class="pod-subtitle">
                         <span>P</span>ublic <span>A</span>ccess <span>S</span>ecure <span>S</span>ystem
                     </div>
                 </div>
             </div>
+            
+            <!-- Live Stats in Top Right -->
             <div class="live-stats">
                 <div class="stat-box">
-                    <div class="stat-value" id="liveUsers">0</div>
                     <div class="stat-label">Users</div>
+                    <div class="stat-value" id="liveUsers">0</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-value" id="liveData">0</div>
                     <div class="stat-label">GB Data</div>
+                    <div class="stat-value" id="liveData">0</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-value" id="liveRevenue">0</div>
                     <div class="stat-label">₹ Rev</div>
+                    <div class="stat-value" id="liveRevenue">0</div>
                 </div>
             </div>
         </div>
@@ -829,13 +968,13 @@
         <div class="content-area">
             <!-- Vendor Panel -->
             <div class="content-panel active" id="vendorPanel">
-                <div class="section-title orange-text">
+                <div class="section-title">
                     <i class="fas fa-cogs"></i>
                     POD CONFIGURATION
                 </div>
                 
                 <div class="config-grid">
-                    <div class="config-card selected" onclick="selectConfig(this, 'mall', '#FF6B00')">
+                    <div class="config-card selected" onclick="selectConfig(this, 'mall', '#B0B0C0')">
                         <div class="config-icon">
                             <i class="fas fa-shopping-bag"></i>
                         </div>
@@ -851,7 +990,7 @@
                         <div class="config-desc">Premium captive audience with international travelers</div>
                     </div>
                     
-                    <div class="config-card" onclick="selectConfig(this, 'campus', '#00A8FF')">
+                    <div class="config-card" onclick="selectConfig(this, 'campus', '#00F0FF')">
                         <div class="config-icon">
                             <i class="fas fa-university"></i>
                         </div>
@@ -867,7 +1006,7 @@
                         <div class="config-desc">Critical connectivity with health service integration</div>
                     </div>
                     
-                    <div class="config-card" onclick="selectConfig(this, 'corporate', '#4CAF50')">
+                    <div class="config-card" onclick="selectConfig(this, 'corporate', '#00FF88')">
                         <div class="config-icon">
                             <i class="fas fa-building"></i>
                         </div>
@@ -884,12 +1023,12 @@
                     </div>
                 </div>
                 
-                <div class="section-title orange-text">
+                <div class="section-title">
                     <i class="fas fa-satellite"></i>
                     CONNECTIVITY OPTIONS
                 </div>
                 
-                <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                <div style="display: flex; gap: 12px; margin-bottom: 15px;">
                     <div class="config-card" style="flex: 1;" onclick="selectConnectivity(this, 'starlink')">
                         <div class="config-icon">
                             <i class="fas fa-satellite"></i>
@@ -914,7 +1053,7 @@
 
             <!-- 100-Inch Screen Services -->
             <div class="content-panel" id="servicesPanel">
-                <div class="section-title orange-text">
+                <div class="section-title">
                     <i class="fas fa-tv"></i>
                     100-INCH SCREEN SERVICES
                 </div>
@@ -1011,30 +1150,30 @@
                     </div>
                 </div>
                 
-                <div class="section-title orange-text" style="margin-top: 30px;">
+                <div class="section-title" style="margin-top: 20px;">
                     <i class="fas fa-chart-bar"></i>
                     SERVICE ANALYTICS
                 </div>
                 
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 15px;">
                     <div class="config-card">
                         <div class="config-name high-contrast">Active Services</div>
-                        <div class="stat-value" style="color: var(--security); margin-top: 10px;">6</div>
+                        <div class="stat-value" style="color: var(--security); margin-top: 8px;">6</div>
                     </div>
                     <div class="config-card">
                         <div class="config-name high-contrast">Daily Impressions</div>
-                        <div class="stat-value" style="color: #FF6900; margin-top: 10px;">2,450</div>
+                        <div class="stat-value" style="color: #B0B0C0; margin-top: 8px;">2,450</div>
                     </div>
                     <div class="config-card">
                         <div class="config-name high-contrast">Engagement Rate</div>
-                        <div class="stat-value" style="color: var(--monetization); margin-top: 10px;">34%</div>
+                        <div class="stat-value" style="color: var(--monetization); margin-top: 8px;">34%</div>
                     </div>
                 </div>
             </div>
 
             <!-- Pod Kit -->
             <div class="content-panel" id="kitPanel">
-                <div class="section-title orange-text">
+                <div class="section-title">
                     <i class="fas fa-box-open"></i>
                     COMPLETE POD KIT
                 </div>
@@ -1082,12 +1221,12 @@
                     </div>
                 </div>
                 
-                <div class="section-title orange-text">
+                <div class="section-title">
                     <i class="fas fa-tools"></i>
                     ADD-ON OPTIONS
                 </div>
                 
-                <div class="kit-items" style="grid-template-columns: repeat(2, 1fr); margin-top: 15px;">
+                <div class="kit-items" style="grid-template-columns: repeat(2, 1fr); margin-top: 12px;">
                     <div class="kit-item" onclick="addToKit('solar')">
                         <i class="fas fa-solar-panel"></i>
                         Solar Power System
@@ -1106,7 +1245,7 @@
                     </div>
                 </div>
                 
-                <button class="action-button" style="margin-top: 30px;" onclick="customizeKit()">
+                <button class="action-button" style="margin-top: 20px;" onclick="customizeKit()">
                     <i class="fas fa-paint-brush"></i> CUSTOMIZE YOUR KIT
                 </button>
             </div>
@@ -1114,21 +1253,21 @@
             <!-- User Access Panel -->
             <div class="content-panel" id="userPanel">
                 <div class="user-connect">
-                    <div class="section-title orange-text">
+                    <div class="section-title">
                         <i class="fas fa-user-shield"></i>
                         SECURE PUBLIC ACCESS
                     </div>
                     
-                    <p style="color: #888; font-size: 12px; margin-bottom: 20px;">
+                    <p style="color: #888; font-size: 11px; margin-bottom: 15px;">
                         Connect to IPNOTEC Secure Tunnel for encrypted public internet access
                     </p>
                     
                     <div class="qr-container">
-                        <div style="font-size: 100px; color: #000;">⎕</div>
+                        <div style="font-size: 90px; color: #000;">⎕</div>
                         <div class="qr-animation"></div>
                     </div>
                     
-                    <p style="color: var(--security); font-size: 10px; margin-top: 10px;">
+                    <p style="color: var(--security); font-size: 9px; margin-top: 8px;">
                         Scan with IPNOTEC App for instant connection
                     </p>
                     
@@ -1136,17 +1275,17 @@
                         <div>
                             <div class="stat-circle speed">
                                 <div class="stat-value-large" id="speedValue">850</div>
-                                <div style="font-size: 10px; color: #888;">Mbps</div>
+                                <div style="font-size: 9px; color: #888;">Mbps</div>
                             </div>
-                            <div style="text-align: center; margin-top: 10px; font-size: 10px;">Connection Speed</div>
+                            <div style="text-align: center; margin-top: 8px; font-size: 9px;">Connection Speed</div>
                         </div>
                         
                         <div>
                             <div class="stat-circle security">
                                 <div class="stat-value-large">256-bit</div>
-                                <div style="font-size: 10px; color: #888;">Encryption</div>
+                                <div style="font-size: 9px; color: #888;">Encryption</div>
                             </div>
-                            <div style="text-align: center; margin-top: 10px; font-size: 10px;">Security Level</div>
+                            <div style="text-align: center; margin-top: 8px; font-size: 9px;">Security Level</div>
                         </div>
                     </div>
                     
@@ -1158,21 +1297,21 @@
 
             <!-- Financial Panel -->
             <div class="content-panel" id="financialPanel">
-                <div class="section-title orange-text">
+                <div class="section-title">
                     <i class="fas fa-chart-line"></i>
                     REVENUE MODEL & PROJECTIONS
                 </div>
                 
                 <div class="revenue-display">
-                    <div style="font-size: 12px; color: #aaa;">MONTHLY REVENUE PER POD</div>
+                    <div style="font-size: 11px; color: #aaa;">MONTHLY REVENUE PER POD</div>
                     <div class="revenue-value">₹ 42,500</div>
-                    <div style="font-size: 10px; color: #888;">Based on average deployment configuration</div>
+                    <div style="font-size: 9px; color: #888;">Based on average deployment configuration</div>
                 </div>
                 
                 <div class="revenue-breakdown">
                     <div class="revenue-item">
                         <div>Venue Subscription</div>
-                        <div class="revenue-amount" style="color: #FF6900;">₹ 15,000</div>
+                        <div class="revenue-amount" style="color: #B0B0C0;">₹ 15,000</div>
                     </div>
                     <div class="revenue-item">
                         <div>Screen Advertising</div>
@@ -1184,28 +1323,28 @@
                     </div>
                 </div>
                 
-                <div class="section-title orange-text" style="margin-top: 30px;">
+                <div class="section-title" style="margin-top: 20px;">
                     <i class="fas fa-calculator"></i>
                     ROI CALCULATOR
                 </div>
                 
-                <div style="background: rgba(20, 20, 40, 0.8); border-radius: 12px; padding: 15px; margin-top: 15px;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                        <div style="color: #aaa; font-size: 11px;">Deployment Cost (Per Pod)</div>
+                <div style="background: rgba(15, 15, 25, 0.8); border-radius: 10px; padding: 12px; margin-top: 12px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <div style="color: #aaa; font-size: 10px;">Deployment Cost (Per Pod)</div>
                         <div style="font-weight: 700; color: white;">₹ 3,50,000</div>
                     </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                        <div style="color: #aaa; font-size: 11px;">Monthly Revenue (Avg)</div>
-                        <div style="font-weight: 700; color: #FF6900;">₹ 42,500</div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <div style="color: #aaa; font-size: 10px;">Monthly Revenue (Avg)</div>
+                        <div style="font-weight: 700; color: #B0B0C0;">₹ 42,500</div>
                     </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                        <div style="color: #aaa; font-size: 11px;">Monthly Operating Cost</div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <div style="color: #aaa; font-size: 10px;">Monthly Operating Cost</div>
                         <div style="font-weight: 700; color: #FF3366;">₹ 12,000</div>
                     </div>
-                    <div style="height: 1px; background: rgba(255,255,255,0.1); margin: 15px 0;"></div>
+                    <div style="height: 1px; background: rgba(255,255,255,0.1); margin: 12px 0;"></div>
                     <div style="display: flex; justify-content: space-between;">
-                        <div style="color: #aaa; font-size: 11px;">BREAK-EVEN PERIOD</div>
-                        <div style="font-weight: 700; color: #FF6900; font-family: 'Orbitron';">8.2 MONTHS</div>
+                        <div style="color: #aaa; font-size: 10px;">BREAK-EVEN PERIOD</div>
+                        <div style="font-weight: 700; color: #B0B0C0; font-family: 'Orbitron';">8.2 MONTHS</div>
                     </div>
                 </div>
                 
@@ -1235,7 +1374,8 @@
         let podCount = 1;
         let connectionActive = false;
         let speedInterval = null;
-        let currentTheme = '#FF6900';
+        let currentTheme = '#B0B0C0';
+        let usedColors = new Set();
         
         // Background canvas animation
         const canvas = document.getElementById('canvas-bg');
@@ -1253,7 +1393,7 @@
                     vx: (Math.random() - 0.5) * 0.5,
                     vy: (Math.random() - 0.5) * 0.5,
                     size: Math.random() * 2 + 1,
-                    color: Math.random() > 0.5 ? 'rgba(255, 105, 0, 0.3)' : 'rgba(0, 176, 240, 0.3)'
+                    color: Math.random() > 0.5 ? 'rgba(176, 176, 192, 0.2)' : 'rgba(0, 240, 255, 0.2)'
                 });
             }
             
@@ -1264,7 +1404,7 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
             // Draw network lines
-            ctx.strokeStyle = 'rgba(255, 105, 0, 0.1)';
+            ctx.strokeStyle = 'rgba(0, 240, 255, 0.1)';
             ctx.lineWidth = 1;
             
             particles.forEach((p1, i) => {
@@ -1300,26 +1440,53 @@
             requestAnimationFrame(drawBackground);
         }
         
+        // Generate random color without repeating in session
+        function getRandomColor() {
+            let color;
+            do {
+                const r = Math.floor(Math.random() * 256);
+                const g = Math.floor(Math.random() * 256);
+                const b = Math.floor(Math.random() * 256);
+                color = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+            } while (usedColors.has(color) && usedColors.size < 16777215); // 16 million colors max
+            
+            usedColors.add(color);
+            if (usedColors.size > 100) {
+                // Clear some colors to prevent memory issues
+                const arr = Array.from(usedColors);
+                usedColors = new Set(arr.slice(-50));
+            }
+            
+            return color;
+        }
+        
+        // Update time with random color for seconds
+        function updateTime() {
+            setInterval(() => {
+                const now = new Date();
+                const timeStr = now.toLocaleTimeString([], {hour12: false});
+                const timeParts = timeStr.split(':');
+                
+                // Get random color for seconds
+                const secondsColor = getRandomColor();
+                
+                // Format time with colored seconds
+                const formattedTime = `${timeParts[0]}:${timeParts[1]}:<span style="color:${secondsColor}">${timeParts[2]}</span>`;
+                document.getElementById('liveTime').innerHTML = formattedTime;
+            }, 1000);
+        }
+        
         // Update live stats
         function updateStats() {
             setInterval(() => {
-                liveUsers += Math.floor(Math.random() * 5);
-                liveData += Math.random() * 0.5;
-                liveRevenue += Math.random() * 10;
+                liveUsers += Math.floor(Math.random() * 3);
+                liveData += Math.random() * 0.3;
+                liveRevenue += Math.random() * 5;
                 
                 document.getElementById('liveUsers').textContent = liveUsers;
                 document.getElementById('liveData').textContent = liveData.toFixed(1);
                 document.getElementById('liveRevenue').textContent = Math.floor(liveRevenue);
             }, 2000);
-        }
-        
-        // Update time
-        function updateTime() {
-            setInterval(() => {
-                const now = new Date();
-                const timeStr = now.toLocaleTimeString([], {hour12: false});
-                document.getElementById('liveTime').textContent = timeStr;
-            }, 1000);
         }
         
         // Switch between panels
@@ -1358,7 +1525,7 @@
             // Update device frame color
             const device = document.querySelector('.ecosystem-device');
             device.style.borderColor = themeColor;
-            device.style.boxShadow = `0 0 80px ${themeColor}33, 0 0 120px rgba(0, 176, 240, 0.2), inset 0 0 20px rgba(255,255,255,0.05)`;
+            device.style.boxShadow = `0 0 40px ${themeColor}33, 0 0 80px rgba(0, 240, 255, 0.2), 0 0 120px rgba(143, 0, 255, 0.1), inset 0 0 20px rgba(255,255,255,0.05)`;
         }
         
         // Select connectivity
@@ -1384,7 +1551,7 @@
             
             setTimeout(() => {
                 button.innerHTML = originalText;
-                button.style.background = currentTheme;
+                button.style.background = `linear-gradient(to right, ${currentTheme}99, rgba(100, 100, 120, 0.8))`;
             }, 2000);
             
             // Update stats
@@ -1456,7 +1623,7 @@
                 // Update button
                 const button = document.querySelector('#userPanel .action-button');
                 button.innerHTML = '<i class="fas fa-plug"></i> ESTABLISH SECURE CONNECTION';
-                button.style.background = currentTheme;
+                button.style.background = `linear-gradient(to right, ${currentTheme}99, rgba(100, 100, 120, 0.8))`;
                 
                 // Reset speed
                 document.getElementById('speedValue').textContent = '850';
@@ -1498,7 +1665,7 @@ This proposal has been generated based on your current configuration.
             if (window.innerWidth <= 600) {
                 const contentArea = document.querySelector('.content-area');
                 const statusBar = document.querySelector('.status-bar');
-                const contentHeight = window.innerHeight - 160; // Adjust based on header and nav height
+                const contentHeight = window.innerHeight - 135; // Adjusted for new heights
                 contentArea.style.height = `${contentHeight}px`;
                 
                 // Ensure footer is visible
@@ -1521,6 +1688,13 @@ This proposal has been generated based on your current configuration.
             
             // Set initial theme
             document.documentElement.style.setProperty('--current-theme', currentTheme);
+            
+            // Add initial time color
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString([], {hour12: false});
+            const timeParts = timeStr.split(':');
+            const secondsColor = getRandomColor();
+            document.getElementById('liveTime').innerHTML = `${timeParts[0]}:${timeParts[1]}:<span style="color:${secondsColor}">${timeParts[2]}</span>`;
         });
         
         // Handle window resize
