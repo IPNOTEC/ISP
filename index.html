@@ -9,12 +9,14 @@
     <style>
         :root {
             --bg-color: #050510;
-            --device-body: #111125;
+            --device-body: rgba(17, 17, 37, 0.85);
             --screen-bg: #000000;
             --electric-violet: #8F00FF;
             --stellar-white: #FFFFFF;
             --danger-red: #FF1A1A;
             --frame-glow: #222244;
+            --primary-orange: #FF6900;
+            --primary-blue: #00B0F0;
             
             /* Infrastructure Colors */
             --connectivity: #00B0F0;    /* Blue - STARLINK/Fiber */
@@ -24,16 +26,19 @@
             --compliance: #8F00FF;      /* Violet - Compliance */
             
             /* Service Categories */
-            --service-social: #1877F2;      /* Facebook Blue */
-            --service-commerce: #FF6B00;    /* E-commerce Orange */
-            --service-learning: #00A8FF;    /* Learning Blue */
-            --service-health: #FF3366;      /* Health Pink */
-            --service-gov: #4CAF50;         /* Government Green */
-            --service-entertainment: #E4405F; /* Entertainment Red */
+            --service-social: #1877F2;
+            --service-commerce: #FF6B00;
+            --service-learning: #00A8FF;
+            --service-health: #FF3366;
+            --service-gov: #4CAF50;
+            --service-entertainment: #E4405F;
             
             /* Kit Items */
             --kit-primary: #1a1a3a;
             --kit-secondary: #222244;
+            
+            /* Current theme color - dynamic */
+            --current-theme: #FF6900;
         }
 
         * { 
@@ -47,7 +52,7 @@
             padding: 0;
             background-color: var(--bg-color);
             background-image: 
-                radial-gradient(circle at 10% 10%, rgba(143, 0, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 10% 10%, rgba(255, 105, 0, 0.15) 0%, transparent 40%),
                 radial-gradient(circle at 90% 90%, rgba(0, 176, 240, 0.15) 0%, transparent 40%);
             height: 100vh;
             display: flex; 
@@ -55,6 +60,7 @@
             align-items: center;
             overflow: hidden; 
             color: var(--stellar-white);
+            backdrop-filter: blur(2px);
         }
 
         /* --- ANIMATED BACKGROUND CANVAS --- */
@@ -69,6 +75,14 @@
             pointer-events: none;
         }
 
+        /* --- GLASS MORPHISM EFFECT --- */
+        .glass-effect {
+            background: rgba(17, 17, 37, 0.85);
+            backdrop-filter: blur(10px) saturate(180%);
+            -webkit-backdrop-filter: blur(10px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         /* --- MAIN DEVICE FRAME --- */
         .ecosystem-device {
             width: 500px;
@@ -79,27 +93,29 @@
             border-radius: 40px;
             position: relative;
             box-shadow: 
-                0 0 80px rgba(143, 0, 255, 0.2),
-                0 0 120px rgba(0, 176, 240, 0.1),
+                0 0 80px rgba(255, 105, 0, 0.3),
+                0 0 120px rgba(0, 176, 240, 0.2),
                 inset 0 0 20px rgba(255,255,255,0.05);
-            border: 4px solid #1a1a3a;
+            border: 4px solid var(--current-theme);
             display: flex; 
             flex-direction: column;
             overflow: hidden; 
             z-index: 10;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
         }
 
         /* --- POD STATUS HEADER --- */
         .pod-header {
             height: 120px;
-            background: linear-gradient(180deg, #0a0a20 0%, #111125 100%);
+            background: linear-gradient(180deg, rgba(10, 10, 32, 0.9) 0%, rgba(17, 17, 37, 0.9) 100%);
             position: relative;
             padding: 20px;
-            border-bottom: 2px solid #1a1a3a;
+            border-bottom: 2px solid rgba(255, 105, 0, 0.3);
             display: flex;
             align-items: center;
             justify-content: space-between;
+            backdrop-filter: blur(5px);
         }
 
         .pod-model-display {
@@ -111,15 +127,16 @@
         .pod-icon {
             width: 60px;
             height: 60px;
-            background: #1a1a3a;
-            border: 2px solid var(--connectivity);
+            background: rgba(26, 26, 58, 0.8);
+            border: 2px solid var(--primary-orange);
             border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 24px;
-            color: var(--connectivity);
-            box-shadow: 0 0 20px rgba(0, 176, 240, 0.3);
+            color: var(--primary-orange);
+            box-shadow: 0 0 20px rgba(255, 105, 0, 0.4);
+            backdrop-filter: blur(5px);
         }
 
         .pod-status {
@@ -131,15 +148,20 @@
             font-family: 'Orbitron', sans-serif;
             font-size: 18px;
             font-weight: 700;
-            color: var(--electric-violet);
+            color: #FF6900;
             letter-spacing: 2px;
         }
 
         .pod-subtitle {
             font-size: 10px;
-            color: #888;
+            color: #FFFFFF;
             letter-spacing: 1px;
             margin-top: 5px;
+        }
+
+        .pod-subtitle span {
+            color: #FF0000;
+            font-weight: 700;
         }
 
         .live-stats {
@@ -169,8 +191,9 @@
         /* --- MODE NAVIGATION --- */
         .mode-nav {
             display: flex;
-            background: #0a0a0a;
-            border-bottom: 1px solid #222;
+            background: rgba(10, 10, 10, 0.9);
+            border-bottom: 1px solid rgba(255, 105, 0, 0.2);
+            backdrop-filter: blur(5px);
         }
 
         .mode-tab {
@@ -178,18 +201,18 @@
             padding: 15px;
             text-align: center;
             font-size: 10px;
-            color: #666;
+            color: #888;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s;
             border-bottom: 3px solid transparent;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
 
         .mode-tab.active {
-            color: var(--electric-violet);
-            border-color: var(--electric-violet);
-            background: rgba(143, 0, 255, 0.05);
+            color: var(--primary-orange);
+            border-color: var(--primary-orange);
+            background: rgba(255, 105, 0, 0.1);
             font-weight: 700;
         }
 
@@ -202,9 +225,11 @@
         /* --- CONTENT AREA --- */
         .content-area {
             flex-grow: 1;
-            background: var(--screen-bg);
+            background: rgba(0, 0, 0, 0.9);
             overflow: hidden;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
         .content-panel {
@@ -212,11 +237,12 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: calc(100% - 40px);
             overflow-y: auto;
             scrollbar-width: thin;
             display: none;
             padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
         }
 
         .content-panel.active {
@@ -233,7 +259,7 @@
         .section-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 14px;
-            color: var(--electric-violet);
+            color: var(--primary-orange);
             margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -250,25 +276,26 @@
         }
 
         .config-card {
-            background: #111;
-            border: 1px solid #222;
+            background: rgba(17, 17, 17, 0.8);
+            border: 1px solid rgba(34, 34, 34, 0.8);
             border-radius: 12px;
             padding: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(5px);
         }
 
         .config-card:hover {
-            border-color: var(--connectivity);
+            border-color: var(--primary-orange);
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 176, 240, 0.2);
+            box-shadow: 0 5px 15px rgba(255, 105, 0, 0.3);
         }
 
         .config-card.selected {
             border-color: var(--security);
-            background: rgba(69, 222, 18, 0.05);
+            background: rgba(69, 222, 18, 0.1);
         }
 
         .config-icon {
@@ -281,7 +308,7 @@
             justify-content: center;
             font-size: 18px;
             margin-bottom: 10px;
-            color: var(--connectivity);
+            color: var(--primary-orange);
         }
 
         .config-name {
@@ -293,17 +320,18 @@
 
         .config-desc {
             font-size: 10px;
-            color: #888;
+            color: #aaa;
             line-height: 1.4;
         }
 
         /* --- KIT DISPLAY --- */
         .kit-display {
             background: rgba(20, 20, 40, 0.8);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,105,0,0.3);
             border-radius: 12px;
             padding: 15px;
             margin: 20px 0;
+            backdrop-filter: blur(5px);
         }
 
         .kit-items {
@@ -315,17 +343,18 @@
 
         .kit-item {
             background: var(--kit-primary);
-            border: 1px solid var(--kit-secondary);
+            border: 1px solid rgba(255,105,0,0.3);
             border-radius: 8px;
             padding: 10px;
             text-align: center;
             font-size: 10px;
             color: #aaa;
             transition: 0.3s;
+            backdrop-filter: blur(5px);
         }
 
         .kit-item:hover {
-            border-color: var(--connectivity);
+            border-color: var(--primary-orange);
             color: white;
             transform: scale(1.05);
         }
@@ -334,7 +363,7 @@
             display: block;
             font-size: 16px;
             margin-bottom: 5px;
-            color: var(--connectivity);
+            color: var(--primary-orange);
         }
 
         /* --- 100-INCH SCREEN SERVICES --- */
@@ -352,11 +381,12 @@
             padding: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
         }
 
         .service-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
 
         .service-card.social { border-color: var(--service-social); }
@@ -455,9 +485,11 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
         }
 
-        .stat-circle.speed { border-color: var(--connectivity); }
+        .stat-circle.speed { border-color: var(--primary-orange); }
         .stat-circle.security { border-color: var(--security); }
 
         .stat-value-large {
@@ -468,12 +500,13 @@
 
         /* --- FINANCIAL PANEL --- */
         .revenue-display {
-            background: linear-gradient(135deg, rgba(143, 0, 255, 0.1), rgba(0, 176, 240, 0.1));
-            border: 1px solid var(--electric-violet);
+            background: linear-gradient(135deg, rgba(255, 105, 0, 0.2), rgba(0, 176, 240, 0.2));
+            border: 1px solid var(--primary-orange);
             border-radius: 15px;
             padding: 20px;
             margin: 20px 0;
             text-align: center;
+            backdrop-filter: blur(5px);
         }
 
         .revenue-value {
@@ -493,10 +526,11 @@
         }
 
         .revenue-item {
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.5);
             border-radius: 8px;
             padding: 10px;
             font-size: 10px;
+            backdrop-filter: blur(5px);
         }
 
         .revenue-amount {
@@ -510,7 +544,7 @@
         .action-button {
             width: 100%;
             padding: 15px;
-            background: var(--electric-violet);
+            background: var(--primary-orange);
             color: white;
             border: none;
             border-radius: 10px;
@@ -524,11 +558,13 @@
             margin-top: 20px;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(5px);
         }
 
         .action-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(143, 0, 255, 0.3);
+            box-shadow: 0 10px 20px rgba(255, 105, 0, 0.4);
+            background: #FF8533;
         }
 
         .action-button:active {
@@ -542,21 +578,28 @@
         }
 
         .action-button.secondary:hover {
-            border-color: var(--connectivity);
+            border-color: var(--primary-orange);
             color: white;
         }
 
-        /* --- STATUS BAR --- */
+        /* --- STATUS BAR (FIXED FOOTER) --- */
         .status-bar {
             height: 40px;
-            background: #080808;
-            border-top: 1px solid #222;
+            min-height: 40px;
+            background: rgba(8, 8, 8, 0.95);
+            border-top: 1px solid rgba(255, 105, 0, 0.3);
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 20px;
             font-size: 9px;
             color: #666;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            backdrop-filter: blur(10px);
+            z-index: 100;
         }
 
         .system-status {
@@ -589,25 +632,64 @@
         }
 
         .content-panel::-webkit-scrollbar-thumb {
-            background: var(--electric-violet);
+            background: var(--primary-orange);
             border-radius: 5px;
         }
 
-        /* --- RESPONSIVE --- */
+        /* --- MOBILE FIXES --- */
         @media (max-width: 600px) {
+            body {
+                padding: 10px;
+                height: 100vh;
+                overflow: auto;
+            }
+            
             .ecosystem-device {
-                width: 95vw;
-                height: 95vh;
-                border-radius: 30px;
+                width: 100%;
+                height: 100%;
+                max-width: 100%;
+                max-height: 100%;
+                border-radius: 20px;
+                position: relative;
             }
             
             .pod-header {
                 height: 100px;
                 padding: 15px;
+                flex-wrap: wrap;
             }
             
             .pod-title {
                 font-size: 16px;
+            }
+            
+            .live-stats {
+                width: 100%;
+                justify-content: space-around;
+                margin-top: 10px;
+            }
+            
+            .mode-nav {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+            }
+            
+            .mode-tab {
+                min-width: 80px;
+                padding: 10px 5px;
+                font-size: 8px;
+            }
+            
+            .content-area {
+                height: calc(100vh - 160px);
+                overflow-y: auto;
+                position: relative;
+            }
+            
+            .content-panel {
+                height: 100%;
+                padding-bottom: 60px;
+                overflow-y: auto;
             }
             
             .config-grid {
@@ -629,6 +711,55 @@
             .connection-stats {
                 grid-template-columns: 1fr;
             }
+            
+            .status-bar {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                border-radius: 0;
+                z-index: 1000;
+            }
+        }
+
+        /* --- HIGH CONTRAST TEXT --- */
+        .high-contrast {
+            color: #FFFFFF !important;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        .orange-text {
+            color: #FF6900 !important;
+        }
+
+        .red-text {
+            color: #FF0000 !important;
+        }
+
+        /* --- THEME COLORS FOR CONFIG CARDS --- */
+        .theme-mall { --current-theme: #FF6B00; }
+        .theme-airport { --current-theme: #00B0F0; }
+        .theme-campus { --current-theme: #00A8FF; }
+        .theme-hospital { --current-theme: #FF3366; }
+        .theme-corporate { --current-theme: #4CAF50; }
+        .theme-smartcity { --current-theme: #8F00FF; }
+
+        /* --- FRAME GLOW EFFECT --- */
+        .frame-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 40px;
+            pointer-events: none;
+            z-index: -1;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 20px var(--current-theme); }
+            100% { box-shadow: 0 0 40px var(--current-theme); }
         }
     </style>
 </head>
@@ -638,6 +769,9 @@
 
     <!-- Main Device -->
     <div class="ecosystem-device">
+        <!-- Frame Glow Effect -->
+        <div class="frame-glow"></div>
+        
         <!-- Pod Header -->
         <div class="pod-header">
             <div class="pod-model-display">
@@ -646,7 +780,9 @@
                 </div>
                 <div class="pod-status">
                     <div class="pod-title">IPNOTEC ISP</div>
-                    <div class="pod-subtitle">Public Access Orchestration Platform</div>
+                    <div class="pod-subtitle">
+                        <span>P</span>ublic <span>A</span>ccess <span>S</span>ecure <span>S</span>ystem
+                    </div>
                 </div>
             </div>
             <div class="live-stats">
@@ -693,62 +829,62 @@
         <div class="content-area">
             <!-- Vendor Panel -->
             <div class="content-panel active" id="vendorPanel">
-                <div class="section-title">
+                <div class="section-title orange-text">
                     <i class="fas fa-cogs"></i>
                     POD CONFIGURATION
                 </div>
                 
                 <div class="config-grid">
-                    <div class="config-card selected" onclick="selectConfig(this, 'mall')">
+                    <div class="config-card selected" onclick="selectConfig(this, 'mall', '#FF6B00')">
                         <div class="config-icon">
                             <i class="fas fa-shopping-bag"></i>
                         </div>
-                        <div class="config-name">Shopping Mall</div>
+                        <div class="config-name high-contrast">Shopping Mall</div>
                         <div class="config-desc">High-traffic retail environment with premium advertising potential</div>
                     </div>
                     
-                    <div class="config-card" onclick="selectConfig(this, 'airport')">
+                    <div class="config-card" onclick="selectConfig(this, 'airport', '#00B0F0')">
                         <div class="config-icon">
                             <i class="fas fa-plane"></i>
                         </div>
-                        <div class="config-name">Airport Terminal</div>
+                        <div class="config-name high-contrast">Airport Terminal</div>
                         <div class="config-desc">Premium captive audience with international travelers</div>
                     </div>
                     
-                    <div class="config-card" onclick="selectConfig(this, 'campus')">
+                    <div class="config-card" onclick="selectConfig(this, 'campus', '#00A8FF')">
                         <div class="config-icon">
                             <i class="fas fa-university"></i>
                         </div>
-                        <div class="config-name">University Campus</div>
+                        <div class="config-name high-contrast">University Campus</div>
                         <div class="config-desc">High-density student population with learning integration</div>
                     </div>
                     
-                    <div class="config-card" onclick="selectConfig(this, 'hospital')">
+                    <div class="config-card" onclick="selectConfig(this, 'hospital', '#FF3366')">
                         <div class="config-icon">
                             <i class="fas fa-hospital"></i>
                         </div>
-                        <div class="config-name">Hospital Complex</div>
+                        <div class="config-name high-contrast">Hospital Complex</div>
                         <div class="config-desc">Critical connectivity with health service integration</div>
                     </div>
                     
-                    <div class="config-card" onclick="selectConfig(this, 'corporate')">
+                    <div class="config-card" onclick="selectConfig(this, 'corporate', '#4CAF50')">
                         <div class="config-icon">
                             <i class="fas fa-building"></i>
                         </div>
-                        <div class="config-name">Corporate Park</div>
+                        <div class="config-name high-contrast">Corporate Park</div>
                         <div class="config-desc">Business-focused with productivity tools integration</div>
                     </div>
                     
-                    <div class="config-card" onclick="selectConfig(this, 'smartcity')">
+                    <div class="config-card" onclick="selectConfig(this, 'smartcity', '#8F00FF')">
                         <div class="config-icon">
                             <i class="fas fa-city"></i>
                         </div>
-                        <div class="config-name">Smart City Hub</div>
+                        <div class="config-name high-contrast">Smart City Hub</div>
                         <div class="config-desc">Municipal integration with citizen services</div>
                     </div>
                 </div>
                 
-                <div class="section-title">
+                <div class="section-title orange-text">
                     <i class="fas fa-satellite"></i>
                     CONNECTIVITY OPTIONS
                 </div>
@@ -758,7 +894,7 @@
                         <div class="config-icon">
                             <i class="fas fa-satellite"></i>
                         </div>
-                        <div class="config-name">STARLINK LEO</div>
+                        <div class="config-name high-contrast">STARLINK LEO</div>
                         <div class="config-desc">Low Earth Orbit Satellite</div>
                     </div>
                     
@@ -766,7 +902,7 @@
                         <div class="config-icon">
                             <i class="fas fa-network-wired"></i>
                         </div>
-                        <div class="config-name">Dual Fiber</div>
+                        <div class="config-name high-contrast">Dual Fiber</div>
                         <div class="config-desc">Airtel + Jio Fiber Backup</div>
                     </div>
                 </div>
@@ -778,7 +914,7 @@
 
             <!-- 100-Inch Screen Services -->
             <div class="content-panel" id="servicesPanel">
-                <div class="section-title">
+                <div class="section-title orange-text">
                     <i class="fas fa-tv"></i>
                     100-INCH SCREEN SERVICES
                 </div>
@@ -789,7 +925,7 @@
                             <div class="service-icon">
                                 <i class="fab fa-facebook-f"></i>
                             </div>
-                            <div class="service-name">Social & Community</div>
+                            <div class="service-name high-contrast">Social & Community</div>
                         </div>
                         <div class="service-desc">
                             • Local community announcements<br>
@@ -804,7 +940,7 @@
                             <div class="service-icon">
                                 <i class="fas fa-shopping-cart"></i>
                             </div>
-                            <div class="service-name">Commerce & Retail</div>
+                            <div class="service-name high-contrast">Commerce & Retail</div>
                         </div>
                         <div class="service-desc">
                             • Mall directory & promotions<br>
@@ -819,7 +955,7 @@
                             <div class="service-icon">
                                 <i class="fas fa-graduation-cap"></i>
                             </div>
-                            <div class="service-name">Education & Learning</div>
+                            <div class="service-name high-contrast">Education & Learning</div>
                         </div>
                         <div class="service-desc">
                             • Campus event schedules<br>
@@ -834,7 +970,7 @@
                             <div class="service-icon">
                                 <i class="fas fa-heartbeat"></i>
                             </div>
-                            <div class="service-name">Health & Wellness</div>
+                            <div class="service-name high-contrast">Health & Wellness</div>
                         </div>
                         <div class="service-desc">
                             • Doctor appointment schedules<br>
@@ -849,7 +985,7 @@
                             <div class="service-icon">
                                 <i class="fas fa-landmark"></i>
                             </div>
-                            <div class="service-name">Government Services</div>
+                            <div class="service-name high-contrast">Government Services</div>
                         </div>
                         <div class="service-desc">
                             • Citizen service announcements<br>
@@ -864,7 +1000,7 @@
                             <div class="service-icon">
                                 <i class="fas fa-film"></i>
                             </div>
-                            <div class="service-name">Entertainment</div>
+                            <div class="service-name high-contrast">Entertainment</div>
                         </div>
                         <div class="service-desc">
                             • Movie trailers & showtimes<br>
@@ -875,22 +1011,22 @@
                     </div>
                 </div>
                 
-                <div class="section-title" style="margin-top: 30px;">
+                <div class="section-title orange-text" style="margin-top: 30px;">
                     <i class="fas fa-chart-bar"></i>
                     SERVICE ANALYTICS
                 </div>
                 
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px;">
                     <div class="config-card">
-                        <div class="config-name">Active Services</div>
+                        <div class="config-name high-contrast">Active Services</div>
                         <div class="stat-value" style="color: var(--security); margin-top: 10px;">6</div>
                     </div>
                     <div class="config-card">
-                        <div class="config-name">Daily Impressions</div>
-                        <div class="stat-value" style="color: var(--connectivity); margin-top: 10px;">2,450</div>
+                        <div class="config-name high-contrast">Daily Impressions</div>
+                        <div class="stat-value" style="color: #FF6900; margin-top: 10px;">2,450</div>
                     </div>
                     <div class="config-card">
-                        <div class="config-name">Engagement Rate</div>
+                        <div class="config-name high-contrast">Engagement Rate</div>
                         <div class="stat-value" style="color: var(--monetization); margin-top: 10px;">34%</div>
                     </div>
                 </div>
@@ -898,13 +1034,13 @@
 
             <!-- Pod Kit -->
             <div class="content-panel" id="kitPanel">
-                <div class="section-title">
+                <div class="section-title orange-text">
                     <i class="fas fa-box-open"></i>
                     COMPLETE POD KIT
                 </div>
                 
                 <div class="kit-display">
-                    <div class="config-name">Standard Deployment Kit Includes:</div>
+                    <div class="config-name high-contrast">Standard Deployment Kit Includes:</div>
                     
                     <div class="kit-items">
                         <div class="kit-item">
@@ -946,7 +1082,7 @@
                     </div>
                 </div>
                 
-                <div class="section-title">
+                <div class="section-title orange-text">
                     <i class="fas fa-tools"></i>
                     ADD-ON OPTIONS
                 </div>
@@ -978,7 +1114,7 @@
             <!-- User Access Panel -->
             <div class="content-panel" id="userPanel">
                 <div class="user-connect">
-                    <div class="section-title">
+                    <div class="section-title orange-text">
                         <i class="fas fa-user-shield"></i>
                         SECURE PUBLIC ACCESS
                     </div>
@@ -1022,7 +1158,7 @@
 
             <!-- Financial Panel -->
             <div class="content-panel" id="financialPanel">
-                <div class="section-title">
+                <div class="section-title orange-text">
                     <i class="fas fa-chart-line"></i>
                     REVENUE MODEL & PROJECTIONS
                 </div>
@@ -1036,7 +1172,7 @@
                 <div class="revenue-breakdown">
                     <div class="revenue-item">
                         <div>Venue Subscription</div>
-                        <div class="revenue-amount" style="color: var(--connectivity);">₹ 15,000</div>
+                        <div class="revenue-amount" style="color: #FF6900;">₹ 15,000</div>
                     </div>
                     <div class="revenue-item">
                         <div>Screen Advertising</div>
@@ -1048,7 +1184,7 @@
                     </div>
                 </div>
                 
-                <div class="section-title" style="margin-top: 30px;">
+                <div class="section-title orange-text" style="margin-top: 30px;">
                     <i class="fas fa-calculator"></i>
                     ROI CALCULATOR
                 </div>
@@ -1060,7 +1196,7 @@
                     </div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                         <div style="color: #aaa; font-size: 11px;">Monthly Revenue (Avg)</div>
-                        <div style="font-weight: 700; color: var(--security);">₹ 42,500</div>
+                        <div style="font-weight: 700; color: #FF6900;">₹ 42,500</div>
                     </div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                         <div style="color: #aaa; font-size: 11px;">Monthly Operating Cost</div>
@@ -1069,7 +1205,7 @@
                     <div style="height: 1px; background: rgba(255,255,255,0.1); margin: 15px 0;"></div>
                     <div style="display: flex; justify-content: space-between;">
                         <div style="color: #aaa; font-size: 11px;">BREAK-EVEN PERIOD</div>
-                        <div style="font-weight: 700; color: var(--connectivity); font-family: 'Orbitron';">8.2 MONTHS</div>
+                        <div style="font-weight: 700; color: #FF6900; font-family: 'Orbitron';">8.2 MONTHS</div>
                     </div>
                 </div>
                 
@@ -1079,7 +1215,7 @@
             </div>
         </div>
 
-        <!-- Status Bar -->
+        <!-- Status Bar (Fixed Footer) -->
         <div class="status-bar">
             <div class="system-status">
                 <div class="status-dot"></div>
@@ -1099,6 +1235,7 @@
         let podCount = 1;
         let connectionActive = false;
         let speedInterval = null;
+        let currentTheme = '#FF6900';
         
         // Background canvas animation
         const canvas = document.getElementById('canvas-bg');
@@ -1116,7 +1253,7 @@
                     vx: (Math.random() - 0.5) * 0.5,
                     vy: (Math.random() - 0.5) * 0.5,
                     size: Math.random() * 2 + 1,
-                    color: Math.random() > 0.5 ? 'rgba(143, 0, 255, 0.3)' : 'rgba(0, 176, 240, 0.3)'
+                    color: Math.random() > 0.5 ? 'rgba(255, 105, 0, 0.3)' : 'rgba(0, 176, 240, 0.3)'
                 });
             }
             
@@ -1127,7 +1264,7 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
             // Draw network lines
-            ctx.strokeStyle = 'rgba(143, 0, 255, 0.1)';
+            ctx.strokeStyle = 'rgba(255, 105, 0, 0.1)';
             ctx.lineWidth = 1;
             
             particles.forEach((p1, i) => {
@@ -1207,12 +1344,21 @@
             currentPanel = panelId;
         }
         
-        // Select configuration
-        function selectConfig(element, configType) {
+        // Select configuration with theme change
+        function selectConfig(element, configType, themeColor) {
             document.querySelectorAll('.config-card').forEach(card => {
                 card.classList.remove('selected');
             });
             element.classList.add('selected');
+            
+            // Update theme color
+            currentTheme = themeColor;
+            document.documentElement.style.setProperty('--current-theme', themeColor);
+            
+            // Update device frame color
+            const device = document.querySelector('.ecosystem-device');
+            device.style.borderColor = themeColor;
+            device.style.boxShadow = `0 0 80px ${themeColor}33, 0 0 120px rgba(0, 176, 240, 0.2), inset 0 0 20px rgba(255,255,255,0.05)`;
         }
         
         // Select connectivity
@@ -1221,7 +1367,7 @@
                 card.style.borderColor = '#222';
                 card.style.transform = 'translateY(0)';
             });
-            element.style.borderColor = 'var(--security)';
+            element.style.borderColor = currentTheme;
             element.style.transform = 'translateY(-3px)';
         }
         
@@ -1238,7 +1384,7 @@
             
             setTimeout(() => {
                 button.innerHTML = originalText;
-                button.style.background = 'var(--electric-violet)';
+                button.style.background = currentTheme;
             }, 2000);
             
             // Update stats
@@ -1310,7 +1456,7 @@
                 // Update button
                 const button = document.querySelector('#userPanel .action-button');
                 button.innerHTML = '<i class="fas fa-plug"></i> ESTABLISH SECURE CONNECTION';
-                button.style.background = 'var(--electric-violet)';
+                button.style.background = currentTheme;
                 
                 // Reset speed
                 document.getElementById('speedValue').textContent = '850';
@@ -1347,21 +1493,44 @@ This proposal has been generated based on your current configuration.
             alert(proposal);
         }
         
+        // Mobile responsive adjustments
+        function handleMobileResize() {
+            if (window.innerWidth <= 600) {
+                const contentArea = document.querySelector('.content-area');
+                const statusBar = document.querySelector('.status-bar');
+                const contentHeight = window.innerHeight - 160; // Adjust based on header and nav height
+                contentArea.style.height = `${contentHeight}px`;
+                
+                // Ensure footer is visible
+                statusBar.style.display = 'flex';
+            }
+        }
+        
         // Initialize everything
         document.addEventListener('DOMContentLoaded', () => {
             initCanvas();
             updateStats();
             updateTime();
+            handleMobileResize();
             
             // Set initial values
             document.getElementById('liveUsers').textContent = liveUsers;
             document.getElementById('liveData').textContent = liveData.toFixed(1);
             document.getElementById('liveRevenue').textContent = Math.floor(liveRevenue);
             document.getElementById('podCount').textContent = podCount;
+            
+            // Set initial theme
+            document.documentElement.style.setProperty('--current-theme', currentTheme);
         });
         
         // Handle window resize
-        window.addEventListener('resize', initCanvas);
+        window.addEventListener('resize', () => {
+            initCanvas();
+            handleMobileResize();
+        });
+        
+        // Handle mobile orientation change
+        window.addEventListener('orientationchange', handleMobileResize);
     </script>
 </body>
 </html>
